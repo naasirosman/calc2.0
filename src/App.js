@@ -10,7 +10,9 @@ function App() {
         const value = event.target.innerText;
         display === '0' 
         ? setDisplay(value) 
-        : setDisplay(display + value);
+        : display === '-0'
+        ? setDisplay('-' + value)
+        : setDisplay(display + value)
     };
     const decimalButtonClick = () => {
         display.includes('.') 
