@@ -12,8 +12,7 @@ function App() {
         ? setDisplay(value) 
         : setDisplay(display + value);
     };
-    const decimalButtonClick = (event) => {
-        const value = event.target.innerText;
+    const decimalButtonClick = () => {
         display.includes('.') 
         ? setDisplay(display)
         : setDisplay(display + '.')
