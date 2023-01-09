@@ -2,9 +2,8 @@ import './App.css';
 import { useMemo, useState } from 'react';
 
 function App() {
-    //   const calculate = useMemo((first, second) => {
 
-    // }, [first, second]);
+ // displays
     const [display, setDisplay] = useState('0');
     const buttonClick = (event) => {
         const value = event.target.innerText;
@@ -21,6 +20,8 @@ function App() {
     };
     const clear = () => {
         setDisplay('0');
+        setFirstNumber('')
+        setSecondNumber('')
     };
     const isNegative = () => {
         display === '0'
@@ -31,6 +32,34 @@ function App() {
             ? setDisplay(`-${display}`)
             : setDisplay(display);
     };
+// operations
+const [firstNumber, setFirstNumber] = useState('0')
+const [secondNumber, setSecondNumber] = useState('0')
+const [operator, setOperator] = useState()
+const operatorButton = (event) => {
+    setFirstNumber(display)
+    setDisplay('0')
+    setOperator(event.target.innerText)
+    console.log(operator)
+}
+const equalsButton = () => {
+    setSecondNumber(display)
+    setDisplay(
+        operator === 'x' 
+        ? firstNumber * secondNumber
+        : operator === '+'
+        ? firstNumber + secondNumber
+        : operator === '-'
+        ? firstNumber - secondNumber
+        : operator === '÷'
+        ? firstNumber / secondNumber
+        : operator === '%'
+        ? (firstNumber / secondNumber) * 100
+        : 'N/A'
+
+    )
+    setFirstNumber(display)
+}
     return (
         <div className="calculator">
             <div className="calculator-display">{display}</div>
@@ -41,8 +70,8 @@ function App() {
                 <button className="calculator-key" onClick={isNegative}>
                     +/-
                 </button>
-                <button className="calculator-key">%</button>
-                <button className="calculator-key">÷</button>
+                <button className="calculator-key" onClick={operatorButton}>%</button>
+                <button className="calculator-key" onClick={operatorButton}>÷</button>
                 <button className="calculator-key" onClick={buttonClick}>
                     7
                 </button>
@@ -52,7 +81,7 @@ function App() {
                 <button className="calculator-key" onClick={buttonClick}>
                     9
                 </button>
-                <button className="calculator-key">x</button>
+                <button className="calculator-key" onClick={operatorButton}>x</button>
                 <button className="calculator-key" onClick={buttonClick}>
                     4
                 </button>
@@ -62,7 +91,7 @@ function App() {
                 <button className="calculator-key" onClick={buttonClick}>
                     6
                 </button>
-                <button className="calculator-key" onClick={buttonClick}>
+                <button className="calculator-key" onClick={operatorButton}>
                     -
                 </button>
                 <button className="calculator-key" onClick={buttonClick}>
@@ -74,7 +103,7 @@ function App() {
                 <button className="calculator-key" onClick={buttonClick}>
                     3
                 </button>
-                <button className="calculator-key" onClick={buttonClick}>
+                <button className="calculator-key" onClick={operatorButton}>
                     +
                 </button>
                 <button className="calculator-key" onClick={buttonClick}>
@@ -83,7 +112,7 @@ function App() {
                 <button className="calculator-key" onClick={decimalButtonClick}>
                     .
                 </button>
-                <button className="calculator-key">=</button>
+                <button className="calculator-key" onClick={equalsButton} >=</button>
             </div>
         </div>
     );
